@@ -13,6 +13,8 @@ import java.util.List;
 @Data
 public class Pedido {
 
+    public Pedido(){}
+
     public Pedido(Long id, Cliente cliente, List<Item> itens, Double valorTotal) {
         this.id = id;
         this.cliente = cliente;

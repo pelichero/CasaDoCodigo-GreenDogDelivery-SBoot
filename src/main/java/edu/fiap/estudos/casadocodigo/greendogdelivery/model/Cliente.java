@@ -13,6 +13,8 @@ import java.util.List;
 @Data
 public class Cliente {
 
+    public Cliente(){}
+
     public Cliente(Long id, String nome, String endereco) {
         this.id = id;
         this.nome = nome;
@@ -34,9 +36,6 @@ public class Cliente {
     @OneToMany(mappedBy = "cliente", fetch = FetchType.EAGER)
     @Cascade(org.hibernate.annotations.CascadeType.ALL)
     private List<Pedido> pedidos = new ArrayList<>();
-
-    public Cliente() {
-    }
 
     public void novoPedido(Pedido pedido2DoFernando) {
         pedidos.add(pedido2DoFernando);

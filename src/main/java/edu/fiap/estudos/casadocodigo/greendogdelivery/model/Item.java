@@ -14,6 +14,8 @@ import javax.validation.constraints.NotNull;
 @Entity
 public class Item {
 
+    public Item(){}
+
     public Item(Long id, String nome, Double preco) {
         this.id = id;
         this.nome = nome;
