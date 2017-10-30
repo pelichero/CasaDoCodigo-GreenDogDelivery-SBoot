@@ -28,4 +28,8 @@ public class IndexController {
         return System.getProperties();
     }
 
+    @GetMapping("/delivery")
+    public String delivery() {
+        return "delivery/index";
+    }
 }
