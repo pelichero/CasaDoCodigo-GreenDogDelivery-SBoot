@@ -1,10 +1,5 @@
 package edu.fiap.estudos.casadocodigo.greendogdelivery.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.validation.Valid;
-
 import edu.fiap.estudos.casadocodigo.greendogdelivery.model.Cliente;
 import edu.fiap.estudos.casadocodigo.greendogdelivery.model.Item;
 import edu.fiap.estudos.casadocodigo.greendogdelivery.model.Pedido;
@@ -13,13 +8,13 @@ import edu.fiap.estudos.casadocodigo.greendogdelivery.repository.ItemRepository;
 import edu.fiap.estudos.casadocodigo.greendogdelivery.repository.PedidoRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+
+import javax.validation.Valid;
+import java.util.HashMap;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/pedidos")
@@ -54,7 +49,7 @@ public class PedidoController {
 		model.put("todosItens",itemRepository.findAll());
 		model.put("todosClientes",clienteRepository.findAll());
 		return new ModelAndView(ITEM_URI + "form",model);
-		 
+
 	}
 
 	@PostMapping(params = "form")
@@ -70,18 +65,17 @@ public class PedidoController {
 				valorTotal +=i.getPreco();
 			}
 			pedidoParaAlterar.setData(pedido.getData());
-			pedidoParaAlterar.setValorTotal(valorTotal);			
+			pedidoParaAlterar.setValorTotal(valorTotal);
 			c.getPedidos().remove(pedidoParaAlterar.getId());
 			c.getPedidos().add(pedidoParaAlterar);
 			this.clienteRepository.save(c);
 		} else {
 			Cliente c = clienteRepository.findOne(pedido.getCliente().getId());
-
-			pedido.setValorTotal(pedido.getItens()
-								.stream()
-								.mapToDouble(Item::getPreco)
-								.sum());
-
+			double valorTotal = 0;
+			for (Item i : pedido.getItens()) {
+				valorTotal +=i.getPreco();
+			}
+			pedido.setValorTotal(valorTotal);
 			pedido = this.pedidoRepository.save(pedido);
 			c.getPedidos().add(pedido);
 			this.clienteRepository.save(c);

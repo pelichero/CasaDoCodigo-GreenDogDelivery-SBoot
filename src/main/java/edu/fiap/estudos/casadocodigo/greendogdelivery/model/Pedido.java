@@ -22,6 +22,14 @@ public class Pedido {
         this.valorTotal = valorTotal;
     }
 
+    public Pedido(Long id, Cliente cliente, List<Item> itens, Double valorTotal, Date data) {
+        this.id = id;
+        this.cliente = cliente;
+        this.itens = itens;
+        this.valorTotal = valorTotal;
+        this.data = data;
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
