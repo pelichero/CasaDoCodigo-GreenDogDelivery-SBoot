@@ -17,15 +17,8 @@ public class EnviaNotificacao {
 		System.out.println("Enviar notificacao para "+cliente.getNome() + " - pedido $"+pedido.getValorTotal());
 		
 		if (notificacao.envioAtivo()) {
-			
-			/*
-			     codigo de envio
-			 */
-			
 			System.out.println("Notificacao enviada!");
-			
 		} else {
-			
 			System.out.println("Notificacao desligada!");
 		
 		}
